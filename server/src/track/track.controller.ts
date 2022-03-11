@@ -9,11 +9,11 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ObjectId } from 'mongoose';
-import { CreateCommentDto } from './dto/create-comment';
-import { CreateTrackDto } from './dto/create-track';
 import { TrackService } from './track.service';
+import { CreateTrackDto } from './dto/create-track.dto';
+import { ObjectId } from 'mongoose';
+import { CreateCommentDto } from './dto/create-comment.dto';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('/tracks')
 export class TrackController {
@@ -28,7 +28,6 @@ export class TrackController {
   )
   create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
     const { picture, audio } = files;
-
     return this.trackService.create(dto, picture[0], audio[0]);
   }
 
